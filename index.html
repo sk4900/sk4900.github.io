@@ -1,24 +1,32 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
   <head>
-
 		<title>Sungmin Kim</title>
 		<!-- link to main stylesheet -->
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
+		<link rel="stylesheet" type="text/css" href="main.css">
   </head>
   <style>
       h1{text-align: center;}
       p{text-align: center;}
       ul {
+          position: relative;
           list-style-type: none;
           margin: 0;
+          height: 46px;
           padding: 0;
-          overflow: hidden;
+          overflow:visible;
           background-color: #999999;
       }
       li {
           float: left;
+      }
+
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #999999;
+          min-width: 180px;
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
       }
 
       li a{
@@ -31,16 +39,33 @@
       li a:hover{
           background-color: black;
       }
+      .show{display: block;}
   </style>
   <body>
     <h1>
         Sungmin Kim
     </h1>
     <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="Projects/pong.html">Projects</a></li>
+        <li><a href="index.html">About</a></li>
+        <li onmouseover="showDrop()" onmouseleave="hideDrop()">
+            <a>Projects</a>
+            <div id="pDropdown" class="dropdown-content">
+                <a href="Projects/pong.html">Pong</a>
+                <a href="index.html">Two</a>
+            </div>
+        </li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
+    <script>
+        function showDrop(){
+            document.getElementById("pDropdown").classList.add("show");
+        }
+        function hideDrop(){
+            document.getElementById("pDropdown").classList.remove("show");
+        }
+    </script>
+    <p>
+        Hi, I'm Sungmin.
+    </p>
   </body>
 </html>
