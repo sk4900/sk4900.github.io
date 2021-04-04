@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../main.css">
 </head>
 <style>
 </style>
@@ -12,16 +12,16 @@
         Sungmin Kim
     </h1>
     <ul>
-        <li><a href="index.html">About</a></li>
+        <li><a href="../index.html">About</a></li>
         <li onmouseover="showDrop()" onmouseleave="hideDrop()">
             <a>Projects</a>
             <div id="pDropdown" class="dropdown-content">
-                <a href="Projects/pong.html">Pong</a>
-                <a href="Projects/minesweeper.html">Minesweeper</a>
-                <a href="Projects/concentration.html">Concentration</a>
+                <a href="pong.html">Pong</a>
+                <a href="minesweeper.html">Minesweeper</a>
+                <a href="concentration.html">Concentration</a>
             </div>
         </li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="../contact.html">Contact</a></li>
     </ul>
     <script>
         function showDrop(){
@@ -31,7 +31,7 @@
             document.getElementById("pDropdown").classList.remove("show");
         }
     </script>
-    <p>sungmin.kim9067@gmail.com</p>
-    <p>(845)-287-9893</p>
+    <div id="game"></div>
+    <script type="text/javascript" src="minesweeper.js"></script>
 </body>
 </html>

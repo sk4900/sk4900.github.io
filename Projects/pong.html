@@ -6,52 +6,36 @@
     <link rel="stylesheet" type="text/css" href="../main.css">
 </head>
 <style>
-    h1{text-align: center;}
-    p{text-align: center;}
-    ul.navbar {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #999999;
-    }
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        background-color: #999999;
-    }
-    li {
-        float: left;
-    }
-
-    li a{
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-    }
-    li a:hover{
-        background-color: black;
-    }
 </style>
 <body>
     <h1>
         Sungmin Kim
     </h1>
-    <ul class="navbar">
+    <ul>
         <li><a href="../index.html">About</a></li>
-        <li><a href="pong.html">Projects</a></li>
+        <li onmouseover="showDrop()" onmouseleave="hideDrop()">
+            <a>Projects</a>
+            <div id="pDropdown" class="dropdown-content">
+                <a href="pong.html">Pong</a>
+                <a href="minesweeper.html">Minesweeper</a>
+                <a href="concentration.html">Concentration</a>
+
+            </div>
+        </li>
         <li><a href="../contact.html">Contact</a></li>
     </ul>
+    <script>
+        function showDrop(){
+            document.getElementById("pDropdown").classList.add("show");
+        }
+        function hideDrop(){
+            document.getElementById("pDropdown").classList.remove("show");
+        }
+    </script>
     <!-- our "canvas" where we draw things-->
-    <!-- link to script.js -->
-    <section>
-        <canvas id="canvas" width="600" height="400"></canvas>
-        <script type="text/javascript" src="script.js"></script>
-    </section>
+    <!-- link to pong.js -->
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <script type="text/javascript" src="pong.js"></script>
 
 </body>
 </html>

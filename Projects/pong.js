@@ -11,7 +11,6 @@ const paddleHeight = 100;
 
 let upArrowPressed = false;
 let downArrowPressed = false;
-
 /* some extra variables ends */
 
 /* objects */
@@ -251,3 +250,5 @@ function gameLoop() {
 
 // calls gameLoop() function 60 times per second
 setInterval(gameLoop, 1000 / 60);
+
+

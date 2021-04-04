@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    <style>
+        .game-square {
+            box-sizing: border-box;
+            border: 1px solid #000;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        .game-square > div {
+            width: 100%;
+            height: 200%;
+            position: absolute;
+            top: 0;
+            transition: 400ms;
+        }
+        .game-square > div > div {
+            height: 50%;
+        }
+        .game-square > div > div:first-child {
+            background-color: gray;
+        }
+        .flip > div {
+            top: -100%;
+        }
+        .square-0 {background-color: aqua;}
+        .square-1 {background-color: bisque;}
+        .square-2 {background-color: blue;}
+        .square-3 {background-color: blueviolet;}
+        .square-4 {background-color: brown;}
+        .square-5 {background-color: cadetblue;}
+        .square-6 {background-color: chartreuse;}
+        .square-7 {background-color: chocolate;}
+        .square-8 {background-color: coral;}
+        .square-9 {background-color: cornflowerblue;}
+        #game {
+            top:50px;
+            margin-left:auto;
+            margin-right:auto;
+            position:relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            border: 1px solid red;
+        }
+        button{
+            top:60px;
+            display: block;
+            position:relative;
+            margin-left:auto;
+            margin-right:auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>
+    Sungmin Kim
+</h1>
+<ul>
+    <li><a href="../index.html">About</a></li>
+    <li onmouseover="showDrop()" onmouseleave="hideDrop()">
+        <a>Projects</a>
+        <div id="pDropdown" class="dropdown-content">
+            <a href="pong.html">Pong</a>
+            <a href="minesweeper.html">Minesweeper</a>
+            <a href="concentration.html">Concentration</a>
+        </div>
+    </li>
+    <li><a href="../contact.html">Contact</a></li>
+    <script>
+        function showDrop(){
+            document.getElementById("pDropdown").classList.add("show");
+        }
+        function hideDrop(){
+            document.getElementById("pDropdown").classList.remove("show");
+        }
+    </script>
+</ul>
+    <div class="container">
+        <div id="game">
+            <!-- Game Squares -->
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="game-square">
+                <div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <button id="reset-button" onclick ="clearGame()">reset</button>
+    </div>
+    <script>
+        var gameSquares = [];
+        var resetButton = document.getElementById("reset-button");
+        var colors = [];
+        var firstSquare = null;
+        for (var i = 0; i < 10; i++) {
+            colors.push('square-' + i);
+        }
+        function GameSquare(el, color) {
+            this.el = el;
+            this.isOpen = false;
+            this.isLocked = false;
+            this.el.addEventListener("click", this, false);
+            this.setColor(color);
+        }
+        GameSquare.prototype.handleEvent = function(e) {
+            switch (e.type) {
+                case "click":
+                    if (this.isOpen || this.isLocked) {
+                        return;
+                    }
+                    this.isOpen = true;
+                    this.el.classList.add('flip');
+                    checkGame(this); // <- check the game here!
+            }
+        }
+        GameSquare.prototype.reset = function() {
+            this.isOpen = false;
+            this.isLocked = false;
+            this.el.classList.remove('flip');
+        }
+        GameSquare.prototype.lock = function() {
+            this.isLocked = true;
+            this.isOpen = true;
+        }
+        GameSquare.prototype.setColor = function(color) {
+            this.el.children[0].children[1].classList.remove(this.color);
+            this.color = color;
+            this.el.children[0].children[1].classList.add(color);
+        }
+        function checkGame(gameSquare) {
+            if (firstSquare === null) {
+                firstSquare = gameSquare;
+                return
+            }
+
+            if (firstSquare.color === gameSquare.color) {
+                firstSquare.lock();
+                gameSquare.lock();
+            } else {
+                var a = firstSquare;
+                var b = gameSquare;
+                setTimeout(function() {
+                    a.reset();
+                    b.reset();
+                    firstSquare = null;
+                }, 250);
+            }
+            firstSquare = null;
+        }
+        function random(n) {
+            return Math.floor(Math.random() * n);
+        }
+        function getSomeColors() {
+            var colorscopy = colors.slice();
+            var randomColors = [];
+            for (var i = 0; i < 8; i++) {
+                var index = random(colorscopy.length);
+                randomColors.push(colorscopy.splice(index, 1)[0]);
+            }
+            return randomColors.concat(randomColors.slice());
+        }
+        function setupGame() {
+            var array = document.getElementsByClassName("game-square");
+            var randomColors = getSomeColors();             // Get an array of 8 random color pairs
+            for (var i = 0; i < array.length; i++) {
+                var index = random(randomColors.length);      // Get a random index
+                var color = randomColors.splice(index, 1)[0]; // Get the color at that index
+                // Use that color to initialize the GameSquare
+                gameSquares.push(new GameSquare(array[i], color));
+            }
+        }
+        function randomizeColors() {
+            var randomColors = getSomeColors();
+            gameSquares.forEach(function(gameSquare) {
+                var color = randomColors.splice(random(randomColors.length), 1)[0];
+                gameSquare.setColor(color);
+            });
+        }
+        function clearGame() {
+            gameSquares.forEach(function(gameSquare) {
+                gameSquare.reset();
+            });
+            setTimeout(function() {
+                randomizeColors();
+            }, 500);
+        }
+        setupGame();
+    </script>
+</body>
+</html>
